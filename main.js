@@ -1,14 +1,17 @@
 const buttonTask1 = document.getElementById('button1');
 const placeForTask1 = document.getElementById('task1');
+const stringForTask1 = document.getElementById('const-task1');
 const buttonTask2 = document.getElementById('button2');
 const placeForTask2 = document.getElementById('task2');
+const stringForTask2 = document.getElementById('const-task2')
 const buttonTask3 = document.getElementById('button3');
 const placeForTask3 = document.getElementById('task3');
+const stringForTask3 = document.getElementById('const-task3')
 const buttonTask4 = document.getElementById('button4');
 const placeForTask4 = document.getElementById('task4');
 
 function parse(string) {
-    const result = string.replace(/[$\sA-z]|,\s/gi, ' ').split(' ').filter(item => item.length > 1).reduce(function(acc, cur, i) {
+    const result = string.textContent.replace(/[$\sA-z]|,\s/gi, ' ').split(' ').filter(item => item.length > 1).reduce(function(acc, cur, i) {
   	acc[i] = cur;
   	return acc;
     }, {})
@@ -17,7 +20,7 @@ function parse(string) {
 }
 
 function parseValid(string) {
-    const array = string.match(/[A-Z0-9]+/gm);
+    const array = string.textContent.match(/[A-Z0-9]+/gm);
     const result = JSON.stringify(array)
     console.log(array)
     placeForTask2.innerText = result
@@ -26,28 +29,25 @@ function parseValid(string) {
 function parseFourStrings(arr) {
     const arrayWithObj = [];
     const codeNameAndDiscount = {};
+    const totalPrice = 150;
+    const parsedArr = arr.textContent.match(/\[(.*?)\]/)[0].split("\n");
     const bestCode = {
         bestCode: getBestCode(),
         bestCodeDiscount: getBestCodeDiscount(),
     };
-    const total = {originalPrice: getTotal()};
-    
-    function getTotal () {
-        return arr.find(item => item.match(/total/)).match(/\d+/)[0];
-    }
+    const total = {originalPrice: totalPrice};
     
     function getPrice () {
-        const price = arr.map(str => str.match(/[0-9]*\$/gm)[0]).map(item => item.replace('$', ''));
-        return price.splice(0, price.length-1)
+        const price = parsedArr.map(str => str.match(/[0-9]*\$/gm).map(item => item.replace('$', ''))).flat();
+        return price
     }
     
     function getCodeAndDiscount(){
         const price = getPrice();
         const regEx = new RegExp(/[A-Z]{2,}[0-9]{0,}/gm);
         const discount = [];
-        const bonusCode = arr.map(str => str.match(regEx)).filter(str => str != null).flat();
-    
-        price.map(el => discount.push(getTotal() - el))
+        const bonusCode = parsedArr.map(str => str.match(regEx)).filter(str => str != null).flat();
+        price.map(el => discount.push(totalPrice - el))
     
         for(let i = 0; i < discount.length; i++){
             for(let j = 0; j < bonusCode.length; j++){
@@ -68,7 +68,7 @@ function parseFourStrings(arr) {
     
     function getBestCodeDiscount() {
         const price = getPrice();
-        return getTotal() - Math.min(...price)
+        return totalPrice - Math.min(...price)
     }
     
     arrayWithObj.push(codeNameAndDiscount, bestCode, total)
@@ -141,11 +141,7 @@ function xmlHttpRequest() {
     }
 }
 
-buttonTask1.addEventListener("click", function() { parse('$1.99, $ 222000.00, $ 1,000.99, 555.44 USD')})
-buttonTask2.addEventListener("click", function() { parseValid(`SAVE50 is not valid
-1223ABC456 is not valid
-JSKFSDKFJH is not valid
-100OFF is not applied
-JANNU11 is applied`)})
-buttonTask3.addEventListener("click", function() {parseFourStrings(["Code 'GENIECODE0' is applied to your cart, Total price is: 90$", "Code 'GENIECODE1' is applied to your cart, Total price is: 80$", "Code 'GENIECODE2' is applied to your cart, Total price is: 70$", "The total price is: 150$"])})
+buttonTask1.addEventListener("click", function() { parse(stringForTask1)})
+buttonTask2.addEventListener("click", function() { parseValid(stringForTask2)})
+buttonTask3.addEventListener("click", function() {parseFourStrings(stringForTask3)})
 buttonTask4.addEventListener("click", function() {xmlHttpRequest()})
