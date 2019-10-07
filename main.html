@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>Ramp up program</h1>
+    </header>
+    <main>
+        <h3>Parsing total price:</h3>
+        <p>Parse total price - create rule that cover all possible values and notations ($1.99, $ 222000.00, $ 1,000.99, 555.44 USD)</p>
+        <div class="task-container">
+            <p><span class="constant">const</span> str = '$1.99, $ 222000.00, $ 1,000.99, 555.44 USD'</p>
+            <button id="button1" type="button">Show Result</button>
+            <p id="task1"></p>
+        </div>
+        <h3>Parse applied codes:</h3>
+        <p>Get all codes listed on the page. The result should be sorted array. Codes are in a string of text of certain template eg.</p>
+        <div class="task-container">
+            <p><span class="constant">const</span> codes = 'SAVE50 is not valid 1223ABC456 is not valid JSKFSDKFJH is not valid 100OFF is not applied JANNU11 is applied'</p>
+            <button id="button2" type="button">Show Result</button>
+            <p id="task2"></p>
+        </div>
+        <h3>To clearly understand how "Drivers" work - you'll need to implement these tasks:</h3>
+        <p>Given 4 strings. You need to parse them using RegExp and return array with objects </br>
+            • Code 'GENIECODE0' is applied to your cart, Total price is: 90$ </br>
+            • Code 'GENIECODE1' is applied to your cart, Total price is: 80$ </br>
+            • Code 'GENIECODE2' is applied to your cart, Total price is: 70$ </br>
+            <span class="total-price">The total price is: 150$</span>
+        </p>
+        <div class="task-container">
+            <p><span class="constant">const</span> testCodes = [ </br>"Code 'GENIECODE0' is applied to your cart, Total price is: 90$", </br>"Code 'GENIECODE1' is applied to your cart, Total price is: 80$", </br>"Code 'GENIECODE2' is applied to your cart, Total price is: 70$", </br>"The total price is: 150$"]</p>
+            <button id="button3" type="button">Show Result</button>
+            <p id="task3"></p>
+        </div>
+        <h3>XML HTTP Request</h3>
+        <p> Search user who has more followers that others</p>
+        <div class="task-container">
+                <button id="button4" type="button">Search</button>
+                <p id="task4">Most of all followers got: </p>
+        </div>
+    </main>
+</body>
+<script src="main.js"></script>
+</html>
